@@ -1,0 +1,13 @@
+﻿
+using StackExchange.Redis;
+
+ConnectionMultiplexer connection = await ConnectionMultiplexer.ConnectAsync("127.0.0.1:6379");
+ISubscriber subscriber = connection.GetSubscriber();
+
+
+await subscriber.SubscribeAsync("mychannel", (channel, message) =>
+{
+    Console.WriteLine(message);
+});
+
+Console.Read();
